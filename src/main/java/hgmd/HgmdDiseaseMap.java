@@ -11,36 +11,38 @@ import java.util.HashMap;
  * sqlite3 hgmd.sqlite3 "select gene,disease from allgenes" > allgenes
  */
 public class HgmdDiseaseMap {
-	HashMap<String, String> m;
+	HashMap<String, String> m = new HashMap<String, String>();
 	final static String SEP = ";";
-	public HgmdDiseaseMap(String path) throws IOException{
+
+	public HgmdDiseaseMap(String path) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(new File(path)));
 
-		// Construct ArrayMmp or like that
-		m = new HashMap< String, String >();
-
-		while(true) {
+		while (true) {
 			String l = br.readLine();
-			if(l.equals("") || null == l) {
+			if (null == l || l.isEmpty()) {
 				break;
 			}
-			String[] temp = l.split("|");
+			String[] temp = l.split("---", -1);
+			if (temp.length != 2) {
+				br.close();
+				throw new RuntimeException("illegal hgmdDiseaseListFromat\n" + "filename:" + path + "\n" + "line:" + l);
+			}
 			String gene = temp[0];
-			String dis = temp[1];
-					
+			String dis = (temp.length == 2) ? temp[1] : "";
+
 			String val;
-			if( (val = m.get(gene) ) != null ) {
-				m.put(gene, val + ";" + dis);
-			}else {
-				m.put(gene, dis);				
+			if ((val = m.get(gene)) != null) {
+				m.put(gene, val + SEP + dis);
+			} else {
+				m.put(gene, dis);
 			}
 		}
 		br.close();
 	}
-	
+
 	public String get(String gene) {
-		String ret = m.get(gene );
-		return (ret!=null )? ret : "no_entry"; 
+		String ret = m.get(gene);
+		return (ret != null) ? ret : "no_entry";
 	}
-	
+
 }
