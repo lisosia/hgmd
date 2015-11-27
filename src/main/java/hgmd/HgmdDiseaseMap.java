@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class HgmdDiseaseMap {
 	HashMap<String, String> m = new HashMap<String, String>();
-	final static String SEP = ";";
+	final static String OUTPUT_SEP = ";";
 
 	public HgmdDiseaseMap(String path) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(new File(path)));
@@ -22,7 +22,7 @@ public class HgmdDiseaseMap {
 			if (null == l || l.isEmpty()) {
 				break;
 			}
-			String[] temp = l.split("---", -1);
+			String[] temp = l.split("\\t", -1);
 			if (temp.length != 2) {
 				br.close();
 				throw new RuntimeException("illegal hgmdDiseaseListFromat\n" + "filename:" + path + "\n" + "line:" + l);
@@ -32,7 +32,7 @@ public class HgmdDiseaseMap {
 
 			String val;
 			if ((val = m.get(gene)) != null) {
-				m.put(gene, val + SEP + dis);
+				m.put(gene, val + OUTPUT_SEP + dis);
 			} else {
 				m.put(gene, dis);
 			}
@@ -42,7 +42,13 @@ public class HgmdDiseaseMap {
 
 	public String get(String gene) {
 		String ret = m.get(gene);
-		return (ret != null) ? ret : "no_entry";
+		if (ret == null) {
+			return "no_entry";
+		} else if (ret.isEmpty()) {
+			return "empty";
+		} else {
+			return ret;
+		}
 	}
 
 }

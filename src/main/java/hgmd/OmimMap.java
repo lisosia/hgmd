@@ -26,23 +26,28 @@ public class OmimMap {
 			}
 
 			for (String gene : genes) {
+				gene = gene.trim();
 				String val = temp[11];
-				if ((val = m.get(gene)) == null) {
+				String prev;
+				if ((prev = m.get(gene)) == null) {
 					m.put(gene, val);
 				} else {
-					m.put(gene, val + "|" + gene);
+					m.put(gene, prev + "|" + val);
 				}
+				System.err.println(">>>" + gene + "-->" + m.get(gene));
 			}
 		}
 		br.close();
 	}
 
 	public String get(String gene) {
-		String ret;
-		if ((ret = m.get(gene)) != null) {
-			return ret;
-		} else {
+		String ret = m.get(gene);
+		if (ret == null) {
 			return "no_entry";
+		} else if (ret.isEmpty()) {
+			return "empty";
+		} else {
+			return ret;
 		}
 	}
 

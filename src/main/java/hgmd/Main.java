@@ -101,7 +101,7 @@ public class Main {
 		String[] gs = genesStr.split(";", -1);
 		HashSet<String> genes = new HashSet<String>(); // set for uniqueness
 		for (String gene_txt : gs) {
-			String[] gene = gene_txt.split("[,()]", -1);
+			String[] gene = gene_txt.split("[,\\(\\)]", -1);
 			if (!gene[1].equals("")) {
 				genes.add(gene[1]);
 			}
