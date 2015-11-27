@@ -28,7 +28,7 @@ public class Main {
 		options.addOption(Option.builder("nss").hasArg().required().desc("nss file. tab separated").build());
 		options.addOption(Option.builder("hgmd").hasArg().required().desc("| separated").build());
 		options.addOption(Option.builder("hgmdIndel").hasArg().required().desc("| separated").build());
-		options.addOption(Option.builder("hgmdDisease").hasArg().required().desc("| separated").build());
+		options.addOption(Option.builder("hgmdDisease").hasArg().required().desc("tab separated").build());
 		options.addOption(Option.builder("omim").hasArg().required().desc("omim file. | sep").build());
 		options.addOption(Option.builder("inhouse").hasArg().required().desc("inhouse").build());
 		String nssP, hgmdP, hgmdIndelP, omimP, hgmdDisP, inhouseP;
@@ -42,10 +42,6 @@ public class Main {
 			hgmdDisP = res.getOptionValue("hgmdDisease");
 			omimP = res.getOptionValue("omim");
 			inhouseP = res.getOptionValue("inhouse");
-			for (String l : res.getArgList()) {
-				System.err.println(l);
-			}
-			System.err.println(hgmdP);
 		} catch (ParseException e) {
 			new HelpFormatter().printHelp("java javafile", options);
 			System.out.println("Unexpected exception:" + e.getMessage());
