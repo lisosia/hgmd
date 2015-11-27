@@ -34,7 +34,6 @@ public class OmimMap {
 				} else {
 					m.put(gene, prev + "|" + val);
 				}
-				System.err.println(">>>" + gene + "-->" + m.get(gene));
 			}
 		}
 		br.close();

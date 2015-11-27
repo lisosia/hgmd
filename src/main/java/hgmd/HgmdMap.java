@@ -32,7 +32,7 @@ public class HgmdMap {
 				throw new RuntimeException("illegal hgmd input, first line must contain metadata: " + FIRSTLINE);
 			}
 			this.maxIndelLen = Integer.parseInt(matcher.group(1));
-			assert maxIndelLen > 0;
+			assert maxIndelLen >= 0;
 		}
 
 		// Construct ArrayMmp or like that
