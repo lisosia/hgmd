@@ -53,7 +53,7 @@ public class HgmdMap {
 				break;
 			}
 
-			String[] ls = l.split("\\|", -1); // ugly
+			String[] ls = l.split("\\t", -1); // ugly
 			final String chr_num = ls[0];
 			final int startPos = Integer.parseInt(ls[1]);
 			final int endPos = Integer.parseInt(ls[2]);

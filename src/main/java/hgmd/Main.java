@@ -26,11 +26,13 @@ public class Main {
 		DefaultParser parser = new DefaultParser();
 		Options options = new Options();
 		options.addOption(Option.builder("nss").hasArg().required().desc("nss file. tab separated").build());
-		options.addOption(Option.builder("hgmd").hasArg().required().desc("| separated").build());
-		options.addOption(Option.builder("hgmdIndel").hasArg().required().desc("| separated").build());
-		options.addOption(Option.builder("hgmdDisease").hasArg().required().desc("tab separated").build());
+		options.addOption(Option.builder("hgmd").hasArg().required().desc("tab separated").build());
+		options.addOption(Option.builder("hgmdIndel").hasArg().required().desc("tab separated").build());
+		options.addOption(Option.builder("hgmdDisease").hasArg().required()
+				.desc("tab separated. gene,disease from allgenes").build());
 		options.addOption(Option.builder("omim").hasArg().required().desc("omim file. | sep").build());
-		options.addOption(Option.builder("inhouse").hasArg().required().desc("inhouse").build());
+		options.addOption(Option.builder("inhouse").hasArg().required()
+				.desc("inhouse . tab sep. chr#,pos,rs#,ref,akt,dot,dot,AlelleNum_AND_AlelleCount").build());
 		String nssP, hgmdP, hgmdIndelP, omimP, hgmdDisP, inhouseP;
 
 		try {
